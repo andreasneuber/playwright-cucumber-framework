@@ -1,34 +1,43 @@
+const { expect } = require('@playwright/test');
 //const basePage = require("cypress/support/pageObjects/")
 
 exports.LoginPage = class LoginPage {
 
-    static url = "?action=form4";
+    url = 'http://localhost:8000/index.php?action=form4';
 
-    static visit() {
-        cy.visit(this.url);
-    }
-    async goto() {
-        await this.page.goto('http://localhost:8000/index.php?action=form4');
-    }
-
-    static provideUsername(username) {
-        cy.get('input[name="user"]').clear().type(username);
-    }
-
-    static providePassword(password) {
-        cy.get('input[name="pw"]').clear().type(password);
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        this.page = page;
+        this.inputUsername = page.locator('input[name="user"]');
+        this.inputPassword = page.locator('input[name="pw"]');
+        this.buttonLogin = page.locator('#btnLogin');
+        this.titleHeader = page.locator('h2');
     }
 
-    static login(username, password) {
-        this.provideUsername(username);
-        this.providePassword(password);
+    async visit() {
+        await this.page.goto(this.url);
     }
 
-    static clickLogin() {
-        cy.get('#btnLogin').click();
+    async provideUsername(username) {
+        await this.inputUsername.fill(username);
     }
 
-    static getTitleForm() {
-        cy.get('h2').should('have.text', 'User 123')
+    async providePassword(password) {
+        await this.inputPassword.fill(password);
+    }
+
+    async login(username, password) {
+        await this.provideUsername(username);
+        await this.providePassword(password);
+    }
+
+    async clickLogin() {
+        await this.buttonLogin.click();
+    }
+
+    async getTitleForm() {
+        return await page.locator(this.titleHeader).textContent();
     }
 }

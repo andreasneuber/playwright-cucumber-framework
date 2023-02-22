@@ -1,35 +1,38 @@
-//const basePage = require("cypress/support/pageObjects/")
+const {expect} = require('@playwright/test');
 
-class userAccountPage {
+exports.UserAccountPage = class UserAccountPage {
 
-    static url = "?action=useraccount";
+    url = 'http://localhost:8000/index.php?action=useraccount';
 
-    static visit() {
-        cy.visit(this.url);
+    /**
+     * @param {import('@playwright/test').Page} page
+     */
+    constructor(page) {
+        this.page = page;
+        this.userAccountMainHeader = page.locator('h2', {hasText: 'User Account'});
+        this.adminDashboardMainHeader = page.locator('h2', {hasText: 'Admin Dashboard'});
+        this.hrResourcesLink = page.locator('#hr-resources-link');
+        this.salesStatisticsLink = page.locator('#sales-statistics-link');
     }
 
-    static displayTitleForm() {
-        let visible = false;
-        cy.get('h2').contains('User Account').then(title => {
-            if (title.is(':visible')){
-                visible = true;
-            }
-        })
-        return visible;
+    async visit() {
+        await this.page.goto(this.url);
     }
 
-    static displayAdminDashboard() {
-        return cy.get('h2').contains('Admin Dashboard');
+    async getUserAccountMainHeader() {
+        return this.userAccountMainHeader;
     }
 
-    static navigateToHumanResourcesSection() {
-        cy.get('#hr-resources-link').click();
+    async getAdminDashboardMainHeader() {
+        //await this.adminDashboardMainHeader.waitFor({ state: 'visible' });
+        return await this.adminDashboardMainHeader.isVisible().catch(e => { console.log(e) })
     }
 
-    static navigateToSalesSection() {
-        cy.get('#sales-statistics-link').click();
-        //cy.wait(3000);
+    async navigateToHumanResourcesSection() {
+        await this.hrResourcesLink.click();
+    }
+
+    async navigateToSalesSection() {
+        await this.salesStatisticsLink.click();
     }
 }
-
-export default userAccountPage
