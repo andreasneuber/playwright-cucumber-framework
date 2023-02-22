@@ -1,11 +1,14 @@
 //const basePage = require("cypress/support/pageObjects/")
 
-class loginPage {
+exports.LoginPage = class LoginPage {
 
     static url = "?action=form4";
 
     static visit() {
         cy.visit(this.url);
+    }
+    async goto() {
+        await this.page.goto('http://localhost:8000/index.php?action=form4');
     }
 
     static provideUsername(username) {
@@ -29,5 +32,3 @@ class loginPage {
         cy.get('h2').should('have.text', 'User 123')
     }
 }
-
-export default loginPage
