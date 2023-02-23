@@ -3,9 +3,8 @@ const { expect } = require("@playwright/test");
 
 const { LoginPage } = require('../pageObjects/loginPage.js');
 const { UserAccountPage } = require('../pageObjects/userAccountPage.js');
-// import userAccountPage from "../../support/pageObjects/userAccountPage.js";
-// import employeePage from "../../support/pageObjects/employeePage.js";
-// import salesPage from "../../support/pageObjects/salesPage.js";
+const { EmployeePage } = require('../pageObjects/employeePage.js');
+const {SalesPage} = require("../pageObjects/salesPage");
 
 
 Given('I navigate to login page', async function () {
@@ -26,23 +25,40 @@ Then('I will be logged into the Admin Dashboard', async function () {
 When('Admin searches for employee {string}', async function (employeeName) {
     const userAccountPage = new UserAccountPage(page);
     await userAccountPage.navigateToHumanResourcesSection();
-    employeePage.employeePageIsDisplayed().should('be.visible');
-    employeePage.fillEmployeeNameInput(employeeName);
-    employeePage.clickSearchBtn();
-});
-Then(/^information appears that employee "([^"]*)" belongs to department "([^"]*)"$/,
-    function (expectedEmployeeName, expectedDepartmentName) {
-        employeePage.employeeRecordIsDisplayed().should('be.visible');
-        employeePage.grabEmployeeName().should('equal', expectedEmployeeName);
-        employeePage.grabDepartmentName().should('equal', expectedDepartmentName);
-    });
-When(/^Admin looks up total sales amount for month "([^"]*)" in year "([^"]*)"$/, function (month, year) {
-    userAccountPage.navigateToSalesSection();
 
-    salesPage.salesStatisticsPageIsDisplayed().should('be.visible');
-    salesPage.grabYearMonthHeader().should('have.text', year + ' Month');
-    salesPage.monthCellIsDisplayed(month).should('be.visible');
+    const employeePage = new EmployeePage(page);
+    await employeePage.employeePageIsDisplayed();
+    await employeePage.fillEmployeeNameInput(employeeName);
+    await employeePage.clickSearchBtn();
 });
-Then(/^the total "([^"]*)" sales amount is "([^"]*)"$/, function (month, expectedSalesAmount) {
-    salesPage.grabSalesAmountFromMonth(month).should('equal', expectedSalesAmount);
+Then('information appears that employee {string} belongs to department {string}',
+    async function (expectedEmployeeName, expectedDepartmentName) {
+        const employeePage = new EmployeePage(page);
+        await employeePage.employeeRecordIsDisplayed();
+
+        const actualEmployeeName = await employeePage.grabEmployeeName();
+        expect(actualEmployeeName).toEqual(expectedEmployeeName);
+
+        const actualDepartmentName = await employeePage.grabDepartmentName();
+        expect(actualDepartmentName).toEqual(expectedDepartmentName);
+
+       // await employeePage.grabDepartmentName().should('equal', expectedDepartmentName);
+    });
+When('Admin looks up total sales amount for month {string} in year {string}', async function (month, year) {
+    const userAccountPage = new UserAccountPage(page);
+    await userAccountPage.navigateToSalesSection();
+
+    const salesPage = new SalesPage(page);
+    await salesPage.salesStatisticsPageIsDisplayed();
+
+    const actualYearMonthHeader = await salesPage.grabYearMonthHeader();
+    expect(actualYearMonthHeader).toEqual(year + ' Month');
+
+    //salesPage.grabYearMonthHeader().should('have.text', year + ' Month');
+    await salesPage.monthCellIsDisplayed(month);
+});
+Then('the total {string} sales amount is {string}', function (month, expectedSalesAmount) {
+    const salesPage = new SalesPage(page);
+    const actualSalesAmount = salesPage.grabSalesAmountFromMonth(month);
+    expect(actualSalesAmount).toEqual(expectedSalesAmount);
 });

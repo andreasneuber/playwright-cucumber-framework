@@ -7,6 +7,10 @@ Sample implementation with Playwright and Cucumber
 ## Run
 `npm run test:e2e acceptance/features/ConvertCelsius.feature`
 
+or 
+
+`npm run test:e2e acceptance/features/AdminPrivileges.feature`
+
 ## Helpful links
 - [https://dev.to/jankaritech/behavior-driven-development-bdd-using-playwright-n1o](https://dev.to/jankaritech/behavior-driven-development-bdd-using-playwright-n1o)
 
