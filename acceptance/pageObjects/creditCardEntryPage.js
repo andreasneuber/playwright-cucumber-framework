@@ -10,10 +10,12 @@ exports.CreditCardEntryPage = class CreditCardEntryPage {
      */
     constructor(page) {
         this.page = page;
-        // this.inputUsername = page.locator('input[name="user"]');
-        // this.inputPassword = page.locator('input[name="pw"]');
-        // this.buttonLogin = page.locator('#btnLogin');
-        // this.titleHeader = page.locator('h2');
+        this.inputCardName = page.locator('#cname');
+        this.inputCardNum = page.locator('#ccnum');
+        this.inputExpiryDate = page.locator('#expdate');
+        this.inputCvv = page.locator('#cvv');
+        this.buttonPayNow = page.locator('#btnPaynow');
+        this.creditCardInfoEntryForm = page.locator('#ccentry');
     }
 
     async visit() {
@@ -21,17 +23,17 @@ exports.CreditCardEntryPage = class CreditCardEntryPage {
     }
 
     async enterCardInformation(cardname, ccnumber, expiryDate, cvv) {
-        cy.get('#cname').clear().type(cardname);
-        cy.get('#ccnum').clear().type(ccnumber);
-        cy.get('#expdate').clear().type(expiryDate);
-        cy.get('#cvv').clear().type(cvv);
+        await this.inputCardName.fill(cardname);
+        await this.inputCardNum.fill(ccnumber);
+        await this.inputExpiryDate.fill(expiryDate);
+        await this.inputCvv.fill(cvv);
     }
 
     async submitPayment() {
-        cy.get('#btnPaynow').click();
+        await this.buttonPayNow.click();
     }
 
     async getCreditCardInfoEntryForm() {
-        return cy.get('#ccentry');
+        return this.creditCardInfoEntryForm;
     }
 }
