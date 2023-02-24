@@ -1,9 +1,9 @@
 const {Given, When, Then} = require('@cucumber/cucumber')
-const { expect } = require("@playwright/test");
+const {expect} = require("@playwright/test");
 
-const { LoginPage } = require('../pageObjects/loginPage.js');
-const { UserAccountPage } = require('../pageObjects/userAccountPage.js');
-const { EmployeePage } = require('../pageObjects/employeePage.js');
+const {LoginPage} = require('../pageObjects/loginPage.js');
+const {UserAccountPage} = require('../pageObjects/userAccountPage.js');
+const {EmployeePage} = require('../pageObjects/employeePage.js');
 const {SalesPage} = require("../pageObjects/salesPage");
 
 
@@ -41,8 +41,6 @@ Then('information appears that employee {string} belongs to department {string}'
 
         const actualDepartmentName = await employeePage.grabDepartmentName();
         expect(actualDepartmentName).toEqual(expectedDepartmentName);
-
-       // await employeePage.grabDepartmentName().should('equal', expectedDepartmentName);
     });
 When('Admin looks up total sales amount for month {string} in year {string}', async function (month, year) {
     const userAccountPage = new UserAccountPage(page);
@@ -54,11 +52,10 @@ When('Admin looks up total sales amount for month {string} in year {string}', as
     const actualYearMonthHeader = await salesPage.grabYearMonthHeader();
     expect(actualYearMonthHeader).toEqual(year + ' Month');
 
-    //salesPage.grabYearMonthHeader().should('have.text', year + ' Month');
     await salesPage.monthCellIsDisplayed(month);
 });
-Then('the total {string} sales amount is {string}', function (month, expectedSalesAmount) {
+Then('the total {string} sales amount is {string}', async function (month, expectedSalesAmount) {
     const salesPage = new SalesPage(page);
-    const actualSalesAmount = salesPage.grabSalesAmountFromMonth(month);
+    const actualSalesAmount = await salesPage.grabSalesAmountFromMonth(month);
     expect(actualSalesAmount).toEqual(expectedSalesAmount);
 });
