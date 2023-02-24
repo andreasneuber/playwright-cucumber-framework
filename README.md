@@ -11,6 +11,10 @@ or
 
 `npm run test:e2e acceptance/features/AdminPrivileges.feature`
 
+or 
+
+`npm run test:e2e acceptance/features/Creditcard.feature`
+
 ## Helpful links
 - [https://dev.to/jankaritech/behavior-driven-development-bdd-using-playwright-n1o](https://dev.to/jankaritech/behavior-driven-development-bdd-using-playwright-n1o)
 

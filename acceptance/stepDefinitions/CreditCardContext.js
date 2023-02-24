@@ -1,6 +1,6 @@
-import {Given, When, Then, Before} from "cypress-cucumber-preprocessor/steps";
-import creditCardEntryPage from "../../support/pageObjects/creditCardEntryPage.js";
-import creditCardResponsePage from "../../support/pageObjects/creditCardResponsePage.js";
+const {Given, When, Then} = require('@cucumber/cucumber')
+const { expect } = require("@playwright/test");
+const { CelsiusToFahrenheitPage } = require('../pageObjects/celsiusToFahrenheitPage.js');
 
 Given(/^User is on card card entry page$/, function () {
     creditCardEntryPage.visit();
