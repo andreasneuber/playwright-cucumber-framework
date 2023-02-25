@@ -25,7 +25,8 @@ exports.UserAccountPage = class UserAccountPage {
 
     async getAdminDashboardMainHeader() {
         //await this.adminDashboardMainHeader.waitFor({ state: 'visible' });
-        return await this.adminDashboardMainHeader.isVisible().catch(e => { console.log(e) })
+        //return await this.adminDashboardMainHeader.isVisible().catch(e => { console.log(e) })
+        return await this.adminDashboardMainHeader.isVisible();
     }
 
     async navigateToHumanResourcesSection() {
