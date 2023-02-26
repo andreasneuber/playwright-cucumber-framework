@@ -15,7 +15,6 @@ const fahrenheitInput = '//input[@name="fahrenheit"]';
 Given('I provide {string} degree Celsius', async function (celsius) {
     const celsiusToFahrenheitPage = new CelsiusToFahrenheitPage(page);
     await celsiusToFahrenheitPage.goto();
-    //await page.goto(url);
     await page.fill(celsiusInput , celsius);
 });
 When('I click the convert button', async function () {
