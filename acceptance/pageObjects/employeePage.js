@@ -43,7 +43,6 @@ exports.EmployeePage = class EmployeePage {
 
     async grabEmployeeName() {
         return await this.employeeNameCell.textContent();
-       // return cy.get('.employee.name').invoke('text');
     }
 
     async grabDepartmentName() {

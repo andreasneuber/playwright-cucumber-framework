@@ -23,6 +23,10 @@ or
 
 `npm run test:e2e acceptance/features/ProvideYourDetails.feature`
 
+or
+
+`npm run test:e2e acceptance/features/ConcurrentWindows.feature`
+
 ## Helpful links
 - [https://dev.to/jankaritech/behavior-driven-development-bdd-using-playwright-n1o](https://dev.to/jankaritech/behavior-driven-development-bdd-using-playwright-n1o)
 
