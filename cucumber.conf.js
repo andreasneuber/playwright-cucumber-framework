@@ -5,6 +5,10 @@ const { chromium } = require("playwright");
 setDefaultTimeout(60000);
 
 
+Object.assign(global, {
+    BASE_URL: 'http://localhost:8000/index.php'
+});
+
 // launch the browser
 BeforeAll(async function () {
    global.browser = await chromium.launch({

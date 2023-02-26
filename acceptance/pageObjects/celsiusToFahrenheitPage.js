@@ -1,29 +1,33 @@
-const { expect } = require('@playwright/test');
+const {expect} = require('@playwright/test');
 
 exports.CelsiusToFahrenheitPage = class CelsiusToFahrenheitPage {
+
+    url = '?action=form6';
 
     /**
      * @param {import('@playwright/test').Page} page
      */
     constructor(page) {
         this.page = page;
-        this.getStartedLink = page.locator('a', { hasText: 'Get started' });
-        this.gettingStartedHeader = page.locator('h1', { hasText: 'Installation' });
-        this.pomLink = page.locator('li', { hasText: 'Guides' }).locator('a', { hasText: 'Page Object Model' });
-        this.tocList = page.locator('article div.markdown ul > li > a');
+        this.celsiusInput = page.locator('//input[@name="celsius"]');
+        this.convertButton = page.locator('#btnCelsius');
+        this.fahrenheitInput = page.locator('//input[@name="fahrenheit"]');
     }
 
-    async goto() {
-        await this.page.goto('http://localhost:8000/index.php?action=form6');
+    async visit() {
+        await this.page.goto(BASE_URL + this.url);
     }
 
-    async getStarted() {
-        await this.getStartedLink.first().click();
-        await expect(this.gettingStartedHeader).toBeVisible();
+
+    async provideCelsius(celsiusDegrees) {
+        await this.celsiusInput.fill(celsiusDegrees);
     }
 
-    async pageObjectModel() {
-        await this.getStarted();
-        await this.pomLink.click();
+    async clickConvert() {
+        await this.convertButton.click();
+    }
+
+    async readFahrenheitField() {
+        return this.fahrenheitInput.getAttribute('value');
     }
 }
