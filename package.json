@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "test:e2e": "cucumber-js --require cucumber.conf.js --require acceptance/stepDefinitions/**/*.js --format @cucumber/pretty-formatter"
+    "test:e2e": "cucumber-js --require cucumber.conf.js --require acceptance/stepDefinitions/**/*.js --format @cucumber/pretty-formatter",
+    "test:all": "cucumber-js --require cucumber.conf.js --require acceptance/stepDefinitions/**/*.js --format @cucumber/pretty-formatter acceptance/features/*.feature"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^8.11.1",
