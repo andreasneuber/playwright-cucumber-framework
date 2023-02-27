@@ -3,7 +3,7 @@ const { expect } = require('@playwright/test');
 
 exports.ThankYouPage = class ThankYouPage {
 
-    url = 'http://localhost:8000/index.php?action=thankYou';
+    url = '?action=thankYou';
 
     /**
      * @param {import('@playwright/test').Page} page
@@ -14,7 +14,7 @@ exports.ThankYouPage = class ThankYouPage {
     }
 
     async visit() {
-        await this.page.goto(this.url);
+        await this.page.goto(BASE_URL + this.url);
     }
 
     async grabThankYouMessage() {

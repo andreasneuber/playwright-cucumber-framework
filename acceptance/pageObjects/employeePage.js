@@ -3,7 +3,7 @@ const { expect } = require('@playwright/test');
 
 exports.EmployeePage = class EmployeePage {
 
-    url = 'http://localhost:8000/index.php?action=employee';
+    url = '?action=employee';
 
     /**
      * @param {import('@playwright/test').Page} page
@@ -20,7 +20,7 @@ exports.EmployeePage = class EmployeePage {
 
 
     async visit() {
-        await this.page.goto(this.url);
+        await this.page.goto(BASE_URL + this.url);
     }
 
     async employeePageIsDisplayed() {

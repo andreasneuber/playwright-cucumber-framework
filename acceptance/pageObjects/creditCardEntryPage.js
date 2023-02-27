@@ -3,7 +3,7 @@ const { expect } = require('@playwright/test');
 
 exports.CreditCardEntryPage = class CreditCardEntryPage {
 
-    url = 'http://localhost:8000/index.php?action=form3';
+    url = '?action=form3';
 
     /**
      * @param {import('@playwright/test').Page} page
@@ -19,7 +19,7 @@ exports.CreditCardEntryPage = class CreditCardEntryPage {
     }
 
     async visit() {
-        await this.page.goto(this.url);
+        await this.page.goto(BASE_URL + this.url);
     }
 
     async enterCardInformation(cardname, ccnumber, expiryDate, cvv) {

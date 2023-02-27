@@ -2,7 +2,7 @@ const {expect} = require('@playwright/test');
 
 exports.UserAccountPage = class UserAccountPage {
 
-    url = 'http://localhost:8000/index.php?action=useraccount';
+    url = '?action=useraccount';
 
     /**
      * @param {import('@playwright/test').Page} page
@@ -16,7 +16,7 @@ exports.UserAccountPage = class UserAccountPage {
     }
 
     async visit() {
-        await this.page.goto(this.url);
+        await this.page.goto(BASE_URL + this.url);
     }
 
     async getUserAccountMainHeader() {

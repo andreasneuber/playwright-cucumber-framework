@@ -3,7 +3,7 @@ const { expect } = require('@playwright/test');
 
 exports.LoginPage = class LoginPage {
 
-    url = 'http://localhost:8000/index.php?action=form4';
+    url = '?action=form4';
 
     /**
      * @param {import('@playwright/test').Page} page
@@ -17,7 +17,7 @@ exports.LoginPage = class LoginPage {
     }
 
     async visit() {
-        await this.page.goto(this.url);
+        await this.page.goto(BASE_URL + this.url);
     }
 
     async provideUsername(username) {

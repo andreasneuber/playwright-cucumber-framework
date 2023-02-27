@@ -24,11 +24,8 @@ exports.ProvideYourDetailsPage = class ProvideYourDetailsPage {
     }
 
     async visit() {
-        await this.page.goto(this.url);
+        await this.page.goto(BASE_URL + this.url);
     }
-
-    // @FindBy(how = How.XPATH, using = "//h2[contains(text(),'Form 1 - Information about yourself')]")
-    // public WebElement titleForm;
 
     async provideFirstname(firstName) {
         await this.inputFirstname.fill(firstName);

@@ -3,7 +3,7 @@ const { expect } = require('@playwright/test');
 
 exports.CreditCardResponsePage = class CreditCardResponsePage {
 
-    url = 'http://localhost:8000/index.php?action=responsecc';
+    url = '?action=responsecc';
 
     /**
      * @param {import('@playwright/test').Page} page
@@ -16,7 +16,7 @@ exports.CreditCardResponsePage = class CreditCardResponsePage {
     }
 
     async visit() {
-        await this.page.goto(this.url);
+        await this.page.goto(BASE_URL + this.url);
     }
 
     async isAlertMessageBoxDisplayed() {

@@ -3,7 +3,7 @@ const {expect} = require('@playwright/test');
 
 exports.SalesPage = class SalesPage {
 
-    url = 'http://localhost:8000/index.php?action=sales';
+    url = '?action=sales';
 
     /**
      * @param {import('@playwright/test').Page} page
@@ -17,7 +17,7 @@ exports.SalesPage = class SalesPage {
     }
 
     async visit() {
-        await this.page.goto(this.url);
+        await this.page.goto(BASE_URL + this.url);
     }
 
     async salesStatisticsPageIsDisplayed() {
