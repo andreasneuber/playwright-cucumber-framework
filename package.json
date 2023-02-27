@@ -1,11 +1,17 @@
 {
+  "name": "playwright-cucumber-playwright",
+  "version": "1.0.0",
+  "description": "",
   "scripts": {
     "test:e2e": "cucumber-js --require cucumber.conf.js --require acceptance/stepDefinitions/**/*.js --format @cucumber/pretty-formatter",
-    "test:all": "cucumber-js --require cucumber.conf.js --require acceptance/stepDefinitions/**/*.js --format @cucumber/pretty-formatter acceptance/features/*.feature"
+    "test:normal": "cucumber-js --require cucumber.conf.js --require acceptance/stepDefinitions/**/*.js --format @cucumber/pretty-formatter acceptance/features/*.feature",
+    "test:all": "cucumber-js --require cucumber.conf.js --require acceptance/stepDefinitions/**/*.js -f json:cucumber_report.json --publish-quiet acceptance/features/*.feature",
+    "report": "node reporter.js"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^8.11.1",
     "@cucumber/pretty-formatter": "^1.0.0",
+    "cucumber-html-reporter": "^5.5.0",
     "@playwright/test": "^1.30.0",
     "playwright": "^1.30.0"
   }
